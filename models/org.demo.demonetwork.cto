@@ -1,0 +1,57 @@
+namespace org.demo.demonetwork
+
+asset ProductAsset identified by assetId {
+  o String assetId
+  --> NetworkParticipant owner
+  o String value
+  o Integer price
+}
+
+asset ConfidenceAsset identified by assetId {
+  o String assetId
+  --> NetworkParticipant owner
+  o Double value
+}
+
+asset CredibilityAsset identified by assetId {
+  o String assetId
+  --> NetworkParticipant owner
+  o Double value
+}
+
+participant NetworkParticipant identified by participantId {
+  o String participantId
+  o String name
+}
+
+transaction SampleTransaction {
+  --> ProductAsset asset
+  o String newValue
+}
+
+transaction ProductTransaction {
+  --> ProductAsset asset
+  --> NetworkParticipant seller
+  --> NetworkParticipant buyer
+  o Double quantity
+}
+
+event SampleEvent {
+  --> ProductAsset asset
+  o String oldValue
+  o String newValue
+}
+
+event ProductBuyingEvent {
+  --> ProductAsset asset
+  --> NetworkParticipant seller
+  --> NetworkParticipant buyer
+  o Double quantity
+}
+
+event ConficenceUpdateEvent {
+  --> ConfidenceAsset asset
+  o Double oldValue
+  o Double newValue
+}
+
